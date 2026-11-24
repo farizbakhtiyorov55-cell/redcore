@@ -3,237 +3,340 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>REDCORE | Gaming Encyclopedia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REDCORE — ENTER THE GAME WORLD</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090a0e;color:#f5f5f5;font-family:Arial,sans-serif}
-header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#0b0c10;border-bottom:1px solid #292c35;position:sticky;top:0;z-index:5}
-.logo{font-size:29px;font-weight:1000;letter-spacing:3px;font-style:italic}
-.logo span{color:#e51b32}
-nav{display:flex;gap:22px;align-items:center}
-nav a{color:#aaa;text-decoration:none;font-size:13px}
-nav a:hover{color:white}
-select,input{background:#171a22;color:white;border:1px solid #343945;padding:11px;border-radius:6px}
-.hero{padding:75px 8%;min-height:370px;background:linear-gradient(90deg,#090a0e 5%,#090a0edd 50%,#390d16bb),url('https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg') center/cover}
-.hero small{color:#ff4359;letter-spacing:4px;font-weight:bold}
-.hero h1{font-size:clamp(45px,7vw,75px);margin:20px 0 12px;line-height:1}
-.hero h1 span{color:#e51b32}
-.hero p{color:#bbb;max-width:650px;line-height:1.7}
-.btn{display:inline-block;background:#e51b32;color:white;padding:13px 20px;border:0;border-radius:5px;text-decoration:none;font-weight:bold;cursor:pointer;margin-top:15px}
-main{max-width:1450px;margin:auto;padding:40px 6%}
-.heading{margin:0 0 22px;font-size:23px}
-.heading:before{content:"";display:inline-block;width:4px;height:23px;background:#e51b32;margin-right:12px;vertical-align:-5px}
-.topgrid,.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
-.topitem{background:#151820;border:1px solid #2a303a;padding:15px;border-radius:7px;display:flex;align-items:center;gap:12px}
-.topitem b{color:#e51b32;font-size:24px}
-.topitem span{font-size:13px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-#search{flex:1;min-width:200px}
-.grid{margin-top:20px}
-.game{background:#13161d;border:1px solid #292e38;border-radius:8px;overflow:hidden;cursor:pointer;transition:.2s}
-.game:hover{transform:translateY(-5px);border-color:#e51b32}
-.poster{height:220px;position:relative;background:linear-gradient(135deg,#45101a,#171a22)}
-.poster img{width:100%;height:100%;object-fit:cover}
-.poster .fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;font-size:20px;font-weight:bold;padding:15px}
-.score{position:absolute;right:8px;top:8px;background:#08090ddd;color:#ff6575;padding:6px;border-radius:4px;font-weight:bold}
+html{scroll-behavior:smooth}
+body{margin:0;background:#080808;color:white;font-family:Arial,sans-serif}
+:root{--red:#ed2029;--panel:#151515}
+header{height:75px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#090909;border-bottom:1px solid #292929;position:sticky;top:0;z-index:10}
+.logo{font-size:29px;font-weight:1000;letter-spacing:2px}
+.logo span,.red{color:var(--red)}
+nav{display:flex;gap:25px}
+nav a{color:white;text-decoration:none;font-size:13px;font-weight:bold}
+nav a:hover{color:var(--red)}
+.menu{display:none;background:none;color:white;border:0;font-size:25px}
+.hero{min-height:570px;display:flex;align-items:center;padding:60px 8%;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=2000&q=90") center/cover;z-index:-2}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000 0%,#000d 45%,#0004),linear-gradient(0deg,#080808,transparent 35%);z-index:-1}
+.hero-content{max-width:680px}
+.eyebrow{color:var(--red);letter-spacing:4px;font-weight:bold}
+.hero h1{font-size:clamp(42px,6vw,76px);line-height:1;margin:20px 0;font-weight:1000}
+.hero p{font-size:17px;line-height:1.8;color:#ddd}
+.btn{display:inline-block;background:var(--red);padding:14px 24px;border-radius:5px;color:white;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
+.btn:hover{background:#ff4149}
+section{padding:60px 6%}
+.heading{margin-bottom:25px}
+.heading h2{font-size:30px;margin:0}
+.heading p{color:#999}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:17px}
+.card{background:var(--panel);border:1px solid #292929;border-radius:8px;overflow:hidden;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-5px);border-color:var(--red)}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#222;display:block}
 .info{padding:13px}
-.info h3{font-size:14px;margin:0 0 8px}
-.info small{color:#9ca2ae}
-.tag{display:inline-block;color:#ff7785;background:#32121a;padding:5px 7px;font-size:10px;border-radius:4px;margin-top:10px}
-.modal{display:none;position:fixed;inset:0;background:#000d;z-index:10;align-items:center;justify-content:center;padding:15px}
-.dialog{background:#11151d;border:1px solid #444b57;border-radius:10px;width:min(850px,100%);max-height:90vh;overflow:auto}
-.modalhero{height:230px;background:linear-gradient(0deg,#11151d,transparent),#28212a;position:relative}
-.modalhero img{width:100%;height:100%;object-fit:cover;opacity:.6}
-.modalhero h2{position:absolute;bottom:15px;left:22px;font-size:28px}
-.close{position:absolute;right:15px;top:15px;background:#272c36;color:white;border:0;padding:10px;border-radius:5px;cursor:pointer}
-.details{padding:22px}
-.details p{color:#c2c6cf;line-height:1.7;font-size:14px}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
-.fact{background:#1a1f28;border:1px solid #303642;padding:13px;border-radius:6px}
-.fact small{display:block;color:#9299a7;font-size:10px}
-.fact b{display:block;margin-top:7px;font-size:13px}
-.columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.box{background:#191e27;border:1px solid #303642;border-radius:7px;padding:15px}
-.box h3{font-size:14px;margin-top:0}
-footer{border-top:1px solid #292c35;padding:28px 6%;color:#777;display:flex;justify-content:space-between;flex-wrap:wrap;font-size:12px}
-@media(max-width:1050px){.grid,.topgrid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:650px){nav a{display:none}.grid,.topgrid{grid-template-columns:repeat(2,1fr)}main{padding:30px 4%}.poster{height:175px}.facts{grid-template-columns:repeat(2,1fr)}.columns{grid-template-columns:1fr}}
+.info h3{font-size:15px;margin:0 0 8px}
+.info small{color:#aaa}
+.catalog{background:#101010}
+.controls{display:grid;grid-template-columns:1fr 200px 170px;gap:12px;margin-bottom:22px}
+.controls input,.controls select{background:#191919;border:1px solid #383838;color:white;padding:14px;border-radius:5px;min-width:0}
+.free-banner{padding:20px;background:#240b0d;border:1px solid #542025;border-radius:8px;margin-bottom:25px}
+.free-banner b{color:#ff525a}
+.modal{display:none;position:fixed;inset:0;background:#000e;z-index:30;overflow:auto;padding:25px}
+.modal.show{display:block}
+.modal-box{max-width:950px;margin:20px auto;background:#111;border:1px solid #444;border-radius:10px;overflow:hidden;position:relative}
+.close{position:absolute;right:15px;top:12px;background:#222;color:white;border:1px solid #555;border-radius:50%;width:38px;height:38px;font-size:23px;cursor:pointer;z-index:2}
+.detail-cover{min-height:300px;background-position:center;background-size:cover;display:flex;align-items:end;padding:25px;background-image:linear-gradient(0deg,#111,transparent)}
+.detail-cover h2{font-size:35px;text-shadow:0 2px 8px black}
+.detail-body{padding:25px}
+.detail-body p{color:#ccc;line-height:1.7}
+.detail-body h3{margin-top:25px}
+.screens{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.screens img{width:100%;border-radius:5px;aspect-ratio:16/9;object-fit:cover;background:#222}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.spec{background:#1b1b1b;padding:15px;border-radius:6px;color:#ccc;white-space:pre-line;font-size:13px;line-height:1.6}
+.spec b{display:block;color:white;margin-bottom:8px}
+#fullInfo{margin-top:30px;padding-top:20px;border-top:1px solid #333}
+#fullInfo h3{color:var(--red);font-size:22px;margin-bottom:15px}
+#fullInfo p{color:#ccc;font-size:14px;line-height:1.9}
+footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
+.empty{color:#aaa;padding:30px;grid-column:1/-1}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+ header{padding:0 5%}
+ nav{display:none;position:absolute;top:75px;left:0;right:0;background:#111;padding:20px;flex-direction:column}
+ nav.open{display:flex}.menu{display:block}
+ .hero{padding:45px 6%;min-height:500px}
+ section{padding:45px 5%}
+ .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+ .controls{grid-template-columns:1fr}
+ .specs{grid-template-columns:1fr}
+ .screens{grid-template-columns:1fr 1fr}
+ .detail-body{padding:18px}
+}
 </style>
 </head>
 <body>
 
 <header>
  <div class="logo">RED<span>CORE</span></div>
- <nav>
-  <a href="#home">Bosh sahifa</a>
+ <nav id="nav">
+  <a href="#home">BOSH SAHIFA</a>
   <a href="#top">TOP 10</a>
-  <a href="#catalog">Katalog</a>
-  <select id="language"><option>UZ</option><option>RU</option><option>EN</option></select>
+  <a href="#catalog">KATALOG</a>
+  <a href="#free">BEPUL O‘YINLAR</a>
  </nav>
+ <button class="menu" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
 </header>
 
 <section class="hero" id="home">
- <small>THE ULTIMATE PC GAMING DATABASE</small>
- <h1>ENTER THE<br><span>GAME WORLD.</span></h1>
- <p>REDCORE — kompyuter o‘yinlari ensiklopediyasi. Mashhur o‘yinlar, ularning tarixi, ishlab chiquvchilari, janrlari, tizim talablari va reytinglarini bir joyda kashf qiling.</p>
- <a href="#catalog" class="btn">O‘YINLARNI KO‘RISH →</a>
+ <div class="hero-content">
+  <div class="eyebrow">WELCOME TO REDCORE</div>
+  <h1>ENTER THE<br><span class="red">GAME WORLD</span></h1>
+  <p>REDCORE — kompyuter o‘yinlari olamiga xush kelibsiz! Sevimli o‘yinlaringizni toping, ular haqida ma’lumot oling va yangi sarguzashtlarni boshlang.</p>
+  <a href="#catalog" class="btn">O‘yinlarni ko‘rish</a>
+ </div>
 </section>
 
-<main>
- <section id="top">
-  <h2 class="heading">REDCORE TOP 10</h2>
-  <div class="topgrid" id="topgrid"></div>
- </section>
+<section id="top">
+ <div class="heading"><h2><span class="red">TOP 10</span> O‘YINLAR</h2><p>Eng mashhur kompyuter o‘yinlari</p></div>
+ <div class="grid" id="topGrid"></div>
+</section>
 
- <section id="catalog" style="margin-top:55px">
-  <h2 class="heading">O‘YINLAR KATALOGI</h2>
-  <div class="toolbar">
-   <input id="search" placeholder="O‘yin nomini qidiring...">
-   <select id="genre">
-    <option value="all">Barcha janrlar</option>
-    <option>Action</option><option>Adventure</option><option>RPG</option>
-    <option>Shooter</option><option>Racing</option><option>Simulation</option>
-    <option>Horror</option><option>Strategy</option><option>Sports</option>
-    <option>Survival</option><option>Indie</option>
-   </select>
-   <select id="sort">
-    <option value="score">Reyting bo‘yicha</option>
-    <option value="name">Nom bo‘yicha</option>
-    <option value="year">Yangi o‘yinlar</option>
-   </select>
+<section class="catalog" id="catalog">
+ <div class="heading"><h2>O‘YINLAR <span class="red">KATALOGI</span></h2><p>O‘zingizga yoqqan o‘yinni toping</p></div>
+ <div class="controls">
+  <input id="search" placeholder="O‘yin nomini qidiring..." oninput="renderMain()">
+  <select id="genre" onchange="renderMain()">
+   <option value="">Barcha janrlar</option>
+   <option>Action</option><option>Shooter</option><option>RPG</option>
+   <option>Strategy</option><option>Survival</option><option>Adventure</option>
+   <option>Racing</option><option>Sport</option>
+  </select>
+  <select id="sort" onchange="renderMain()">
+   <option value="az">Nom: A-Z</option><option value="za">Nom: Z-A</option>
+  </select>
+ </div>
+ <div class="grid" id="mainGrid"></div>
+</section>
+
+<section id="free">
+ <div class="heading"><h2><span class="red">BEPUL</span> O‘YINLAR</h2><p>Bepul o‘yinlarni kashf eting</p></div>
+ <div class="free-banner"><b>FREE GAMES</b><p>O‘yinni tanlang, ma’lumotlarini REDCORE ichida ko‘ring.</p></div>
+ <div class="controls">
+  <input id="freeSearch" placeholder="Bepul o‘yinlardan qidiring..." oninput="renderFree()">
+  <select id="freeGenre" onchange="renderFree()">
+   <option value="">Barcha janrlar</option>
+   <option>Action</option><option>Shooter</option><option>RPG</option>
+   <option>Strategy</option><option>Survival</option><option>Casual</option>
+  </select>
+  <select id="freeSort" onchange="renderFree()">
+   <option value="az">Nom: A-Z</option><option value="za">Nom: Z-A</option>
+  </select>
+ </div>
+ <div class="grid" id="freeGrid"></div>
+</section>
+
+<footer><b>RED<span class="red">CORE</span></b> — ENTER THE GAME WORLD</footer>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="modal-box">
+  <button class="close" onclick="closeModal()">×</button>
+  <div class="detail-cover" id="detailCover"><h2 id="detailTitle"></h2></div>
+  <div class="detail-body">
+   <p id="detailDesc"></p>
+   <p id="detailMeta"></p>
+   <a id="steamLink" class="btn" target="_blank" rel="noopener">STEAM'DA KO‘RISH</a>
+   <h3>O‘YIN RASMLARI</h3>
+   <div class="screens" id="screens"></div>
+   <h3>TIZIM TALABLARI</h3>
+   <div class="specs">
+    <div class="spec"><b>Minimal talablar</b><span id="minimum"></span></div>
+    <div class="spec"><b>Tavsiya etilgan talablar</b><span id="recommended"></span></div>
+   </div>
   </div>
-  <p id="count" style="color:#999;font-size:12px"></p>
-  <div class="grid" id="grid"></div>
- </section>
-
- <section style="margin-top:55px">
-  <h2 class="heading">LOYIHA HAQIDA</h2>
-  <div class="box">
-   <p>REDCORE — PC o‘yinlari haqida ma’lumot beruvchi mustaqil ensiklopediya loyihasi. Saytdagi baholar REDCORE tahririy baholari bo‘lib, rasmiy Steam yoki Metacritic reytinglari emas. Tizim talablari qisqa ma’lumot sifatida berilgan; o‘rnatishdan oldin o‘yinning rasmiy sahifasini tekshiring.</p>
-  </div>
- </section>
-</main>
-
-<div class="modal" id="modal"><div class="dialog" id="dialog"></div></div>
-
-<footer>
- <div class="logo">RED<span>CORE</span></div>
- <div>© 2026 REDCORE</div>
- <div>THE WORLD OF PC GAMING</div>
-</footer>
+ </div>
+</div>
 
 <script>
+// O‘YIN MA’LUMOTLARI SAYT ICHIDA SAQLANADI
 const games=[
-["Grand Theft Auto V",271590,2015,"Action","Rockstar North","Rockstar Games",9.5,"Los Santos shahrida uch qahramonning hayoti, jinoyat olami va katta ochiq dunyo bilan tanishing.","Ochiq dunyo, hikoya, GTA Online","4 GB RAM / GTX 9800 GT","8 GB RAM / GTX 660"],
-["Red Dead Redemption 2",1174180,2019,"Adventure","Rockstar Studios","Rockstar Games",9.9,"1899-yil Amerikasi. Arthur Morgan va Van der Linde to‘dasi haqidagi katta ochiq dunyo sarguzashti.","Ochiq dunyo, western, hikoya","8 GB RAM / GTX 770","12 GB RAM / GTX 1060"],
-["Cyberpunk 2077",1091500,2020,"RPG","CD Projekt Red","CD Projekt",9.2,"Night City megapolisida V ismli yollanma qahramon sifatida o‘z yo‘lingizni tanlang. Kelajak texnologiyalari va murakkab hikoya.","Ochiq dunyo, futuristik RPG","12 GB RAM / GTX 1060","16 GB RAM / RTX 2060"],
-["The Witcher 3",292030,2015,"RPG","CD Projekt Red","CD Projekt",9.8,"Geralt of Rivia yo‘qolgan Ciri'ni izlaydi. Tanlovlar va fantastik dunyo o‘yinning asosini tashkil qiladi.","Fantastika, ochiq dunyo, hikoya","6 GB RAM / GTX 660","8 GB RAM / GTX 770"],
-["Minecraft",0,2011,"Adventure","Mojang","Mojang",9.6,"Bloklardan tashkil topgan dunyoda qurish, kashf qilish va omon qolish. Ijodiy va Survival rejimlari mavjud.","Sandbox, qurilish, Survival","4 GB RAM / Intel HD","8 GB RAM / alohida GPU"],
-["Counter-Strike 2",730,2023,"Shooter","Valve","Valve",9.1,"Ikki jamoa o‘rtasidagi raundli taktik jang. Jamoaviy aloqa va aniqlik muhim.","Taktik shooter, multiplayer","8 GB RAM / DX11 GPU","16 GB RAM / kuchli GPU"],
-["Dota 2",570,2013,"Strategy","Valve","Valve",9.0,"Besh kishilik ikki jamoa raqib bazasini yengishga intiladi. Ko‘plab qahramonlar va strategiyalar mavjud.","MOBA, strategiya","4 GB RAM","8 GB RAM"],
-["PUBG Battlegrounds",578080,2017,"Shooter","PUBG Studios","Krafton",8.7,"Katta xaritada jihoz toping va omon qolishga harakat qiling. Yakka yoki jamoaviy o‘ynash mumkin.","Battle Royale, multiplayer","8 GB RAM / GTX 960","16 GB RAM / GTX 1060"],
-["Apex Legends",1172470,2020,"Shooter","Respawn","Electronic Arts",8.8,"Har biri o‘ziga xos qobiliyatga ega qahramonlar jamoa bo‘lib jang qiladi.","Hero shooter, Battle Royale","6 GB RAM / GTX 950","8 GB RAM / GTX 970"],
-["Elden Ring",1245620,2022,"RPG","FromSoftware","Bandai Namco",9.7,"The Lands Between sirli dunyosini o‘rganing. Murakkab janglar, bosslar va erkin kashfiyot.","Dark Fantasy, RPG","12 GB RAM / GTX 1060","16 GB RAM / GTX 1070"],
-["Baldur's Gate 3",1086940,2023,"RPG","Larian Studios","Larian Studios",9.8,"Dungeons & Dragons olamidagi rol o‘ynash o‘yini. Qarorlaringiz hikoyaga ta’sir qiladi.","RPG, tanlovlar, Co-op","8 GB RAM / GTX 970","16 GB RAM / RTX 2060"],
-["Hogwarts Legacy",990080,2023,"Adventure","Avalanche Software","Warner Bros.",8.6,"Hogwarts sehrgarlar maktabi va uning atrofidagi sehrli dunyoni o‘rganing.","Sehr, ochiq dunyo","16 GB RAM / GTX 1070","16 GB RAM / GTX 1080 Ti"],
-["Forza Horizon 5",1551360,2021,"Racing","Playground Games","Xbox Game Studios",9.2,"Meksika manzaralarida yuzlab avtomobillar bilan poyga qiling.","Poyga, avtomobil, ochiq dunyo","8 GB RAM / GTX 970","16 GB RAM / GTX 1070"],
-["Forza Motorsport",2440510,2023,"Racing","Turn 10 Studios","Xbox Game Studios",8.4,"Haqiqiy poyga yo‘llari va avtomobillarga e’tibor qaratilgan simulyator.","Poyga, simulyator","8 GB RAM / GTX 1060","16 GB RAM / RTX 2080"],
-["Need for Speed Heat",1222680,2019,"Racing","Ghost Games","Electronic Arts",8.2,"Palm City ko‘chalarida kunduzgi va tungi poygalarda qatnashing.","Ko‘cha poygasi, tuning","8 GB RAM / GTX 760","16 GB RAM / GTX 1070"],
-["Need for Speed Unbound",1846380,2022,"Racing","Criterion Games","Electronic Arts",8.0,"Lake Shore City ko‘chalarida poyga qiling va avtomobillaringizni moslang.","Ko‘cha poygasi, avtomobil","8 GB RAM / GTX 1050 Ti","16 GB RAM / RTX 2070"],
-["Euro Truck Simulator 2",227300,2012,"Simulation","SCS Software","SCS Software",9.2,"Yevropa bo‘ylab yuk tashish kompaniyasini rivojlantiring va yuk mashinalarini boshqaring.","Simulyator, transport","4 GB RAM","6 GB RAM"],
-["American Truck Simulator",270880,2016,"Simulation","SCS Software","SCS Software",8.8,"AQSH yo‘llari bo‘ylab yuk tashish va uzoq masofali haydash tajribasi.","Simulyator, transport","4 GB RAM","6 GB RAM"],
-["The Sims 4",1222670,2014,"Simulation","Maxis","Electronic Arts",8.0,"Sim personajlarini yarating, uy quring va ularning hayotini boshqaring.","Hayot simulyatori","4 GB RAM","8 GB RAM"],
-["Resident Evil 4",2050650,2023,"Horror","Capcom","Capcom",9.3,"Leon Kennedy maxsus topshiriq bilan chekka hududga boradi. Dahshat va jang elementlari uyg‘unlashgan.","Survival Horror, Action","8 GB RAM / GTX 1050 Ti","16 GB RAM / GTX 1070"],
-["Resident Evil Village",1196590,2021,"Horror","Capcom","Capcom",8.7,"Ethan Winters sirli qishloqda o‘z oilasini izlaydi. Dahshat, jumboq va janglar mavjud.","Horror, hikoya","8 GB RAM / GTX 1050 Ti","16 GB RAM / GTX 1070"],
-["Silent Hill 2",2124490,2024,"Horror","Bloober Team","Konami",9.0,"James Sunderland sirli Silent Hill shahriga qaytadi. Psixologik dahshat va jumboqli hikoya.","Psixologik horror","16 GB RAM / GTX 1070","16 GB RAM / RTX 2080"],
-["Phasmophobia",739630,2020,"Horror","Kinetic Games","Kinetic Games",8.5,"Do‘stlar bilan paranormal hodisalarni tekshiring va mavjudot turini aniqlashga harakat qiling.","Co-op, horror","8 GB RAM / GTX 970","16 GB RAM / RTX 2060"],
-["Dead by Daylight",381210,2016,"Horror","Behaviour Interactive","Behaviour Interactive",8.1,"Bir o‘yinchi qotil, qolganlari esa omon qolishga urinuvchi qahramonlar rolida.","Horror, multiplayer","8 GB RAM / GTX 460","8 GB RAM / GTX 760"],
-["Left 4 Dead 2",550,2009,"Shooter","Valve","Valve",9.3,"To‘rt omon qoluvchi zombi bosib olgan hududlardan jamoa bo‘lib o‘tadi.","Co-op, shooter","2 GB RAM","4 GB RAM"],
-["Call of Duty Warzone",1962660,2022,"Shooter","Activision","Activision",8.3,"Katta xaritalarda jamoaviy omon qolish va raqiblar bilan kurashish.","Battle Royale, shooter","8 GB RAM / GTX 960","16 GB RAM / RTX 3060"],
-["Battlefield V",1238810,2018,"Shooter","DICE","Electronic Arts",8.4,"Ikkinchi jahon urushi davridagi kampaniya va katta multiplayer janglar.","FPS, urush","8 GB RAM / GTX 1050","16 GB RAM / GTX 1060"],
-["Rainbow Six Siege",359550,2015,"Shooter","Ubisoft Montreal","Ubisoft",8.8,"Hujumchi va himoyachi jamoalar maxsus operatorlar yordamida bellashadi.","Taktik shooter","6 GB RAM / GTX 460","8 GB RAM / GTX 960"],
-["Overwatch 2",2357570,2023,"Shooter","Blizzard","Blizzard",8.0,"Turli qobiliyatga ega qahramonlar jamoasi maqsadlar uchun kurashadi.","Hero shooter, jamoaviy","6 GB RAM / GTX 600","8 GB RAM / GTX 1060"],
-["League of Legends",0,2009,"Strategy","Riot Games","Riot Games",8.9,"Ikki jamoa xaritada raqobatlashadi. Qahramon tanlash va jamoaviy strategiya muhim.","MOBA, strategiya","2 GB RAM","4 GB RAM"],
-["Terraria",105600,2011,"Adventure","Re-Logic","Re-Logic",9.1,"2D dunyoda resurs yig‘ing, buyumlar yarating va bosslarga qarshi kurashing.","Sandbox, crafting","2.5 GB RAM","4 GB RAM"],
-["Stardew Valley",413150,2016,"Simulation","ConcernedApe","ConcernedApe",9.2,"Fermani tiklang, ekin eking, baliq ovlang va qishloq aholisi bilan tanishing.","Indie, ferma","2 GB RAM","4 GB RAM"],
-["Hollow Knight",367520,2017,"Adventure","Team Cherry","Team Cherry",9.4,"Hallownest yerosti qirolligini o‘rganing. Murakkab janglar va sirli tarix mavjud.","Metroidvania, Indie","4 GB RAM","4 GB RAM"],
-["Hades",1145360,2020,"Action","Supergiant Games","Supergiant Games",9.3,"Zagreus yerosti olamidan chiqishga urinadi. Har urinishda yangi kuch va voqealar ochiladi.","Roguelike, Action","4 GB RAM","8 GB RAM"],
-["Cuphead",268910,2017,"Indie","Studio MDHR","Studio MDHR",8.8,"1930-yillar multfilmlaridan ilhomlangan uslub, boss janglari va platforma bosqichlari.","Platformer, Indie","3 GB RAM","4 GB RAM"],
-["It Takes Two",1426210,2021,"Adventure","Hazelight Studios","Electronic Arts",9.1,"Ikki o‘yinchi birgalikda jumboq va sinovlardan o‘tadigan sarguzasht.","Co-op, sarguzasht","8 GB RAM / GTX 660","16 GB RAM / GTX 980"],
-["Portal 2",620,2011,"Adventure","Valve","Valve",9.5,"Portal quroli yordamida fazoviy jumboqlarni yeching. Hikoya va kooperativ rejim mavjud.","Puzzle, Co-op","2 GB RAM","4 GB RAM"],
-["Garry's Mod",4000,2006,"Simulation","Facepunch Studios","Valve",8.7,"Fizika asosidagi erkin sandbox. Obyektlar bilan tajriba o‘tkazing va turli rejimlarni sinang.","Sandbox, community","4 GB RAM","8 GB RAM"],
-["Rust",252490,2018,"Survival","Facepunch Studios","Facepunch Studios",8.2,"Ochiq dunyoda resurs yig‘ish, boshpana qurish va omon qolish.","Survival, multiplayer","10 GB RAM / GTX 670","16 GB RAM / GTX 980"],
-["ARK Survival Evolved",346110,2017,"Survival","Studio Wildcard","Studio Wildcard",8.0,"Dinozavrlar yashaydigan orolda resurs yig‘ing, boshpana quring va mavjudotlarni o‘rganing.","Survival, dinozavrlar","8 GB RAM","16 GB RAM"],
-["Sea of Thieves",1172620,2018,"Adventure","Rare","Xbox Game Studios",8.4,"Do‘stlar bilan kemada sayohat qiling, orollarni o‘rganing va qaroqchilar sarguzashtlarida qatnashing.","Co-op, sarguzasht","8 GB RAM","16 GB RAM"],
-["No Man's Sky",275850,2016,"Adventure","Hello Games","Hello Games",8.6,"Koinotda sayyoralarni kashf qiling, resurs to‘plang, kemalarni boshqaring va bazalar yarating.","Koinot, exploration","8 GB RAM","16 GB RAM"],
-["Subnautica",264710,2018,"Survival","Unknown Worlds","Unknown Worlds",9.0,"Okean sayyorasida suv osti dunyosini o‘rganing, resurs yig‘ing va sirlarni oching.","Survival, okean","4 GB RAM","8 GB RAM"],
-["Among Us",945360,2018,"Strategy","Innersloth","Innersloth",8.0,"Ekipaj vazifalarni bajaradi, ammo ular orasida yashirin impostor bor. Uni topishga harakat qiling.","Party, multiplayer","1 GB RAM","2 GB RAM"],
-["F1 24",2488620,2024,"Racing","Codemasters","Electronic Arts",8.1,"Formula 1 poygalariga asoslangan simulyator. Avtomobil sozlamalari va trek mahoratini sinang.","Formula 1, racing","8 GB RAM / GTX 1060","16 GB RAM / RTX 2070"],
-["EA Sports FC 25",2669320,2024,"Sports","EA Canada","Electronic Arts",8.3,"Klublar va futbolchilar bilan virtual futbol uchrashuvlari. Jamoangizni tuzing va musobaqalarda qatnashing.","Futbol, sports","8 GB RAM / GTX 1050 Ti","12 GB RAM / GTX 1660"],
-["eFootball",1665460,2021,"Sports","Konami","Konami",7.7,"Konami futbol simulyatori. Jamoa tuzing, futbolchilarni rivojlantiring va uchrashuvlarda qatnashing.","Futbol, sports","8 GB RAM","8 GB RAM"],
-["Football Manager 2024",2252570,2023,"Strategy","Sports Interactive","SEGA",8.8,"Futbol klubining menejeri bo‘ling: tarkib, taktika, transfer va mashg‘ulotlarni boshqaring.","Futbol, menejment","4 GB RAM","8 GB RAM"],
-["Skyrim Special Edition",489830,2016,"RPG","Bethesda Game Studios","Bethesda",9.4,"Skyrim viloyatida ajdarlar qaytgan davr. Katta fantastik dunyoni o‘rganing va qahramoningizni rivojlantiring.","Ochiq dunyo, RPG","8 GB RAM / GTX   ","8 GB RAM / GTX 780"],
-["Fallout 4",377160,2015,"RPG","Bethesda Game Studios","Bethesda",8.8,"Yadro falokatidan keyingi Boston hududida oilangizni izlang, boshpanalar quring va turli guruhlar bilan tanishing.","Post-apocalypse, RPG","8 GB RAM / GTX 550 Ti","8 GB RAM / GTX 780"],
-["Sekiro Shadows Die Twice",814380,2019,"Action","FromSoftware","Activision",9.2,"Fantastik Sengoku davrida shinobi qahramon o‘z xo‘jayinini qutqarishga intiladi.","Action, yapon tarixi","4 GB RAM / GTX 760","8 GB RAM / GTX 970"],
-["Dark Souls III",374320,2016,"RPG","FromSoftware","Bandai Namco",9.1,"Qorong‘i fantastik olamda murakkab dushmanlar va bosslarga qarshi kurashing.","Dark Fantasy, RPG","4 GB RAM / GTX 465","8 GB RAM / GTX 750 Ti"]
+{id:730,name:"Counter-Strike 2",genre:"Shooter",free:true,desc:"Counter-Strike 2 — jamoaviy taktik shooter. Terroristlar va qarshi-terroristlar o‘rtasidagi janglarda mahoratingizni sinab ko‘ring.",min:"OS: Windows 10\nCPU: 4 hardware CPU threads\nRAM: 8 GB\nGPU: DirectX 11 compatible",rec:"OS: Windows 11\nRAM: 16 GB\nGPU: Kuchliroq grafik karta"},
+{id:570,name:"Dota 2",genre:"Strategy",free:true,desc:"Dota 2 — ikki jamoa o‘rtasidagi strategik MOBA o‘yini. Qahramoningizni tanlang va jamoangiz bilan g‘alaba qozoning.",min:"OS: Windows 7 yoki yangiroq\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
+{id:440,name:"Team Fortress 2",genre:"Shooter",free:true,desc:"Team Fortress 2 — turli qobiliyatlarga ega qahramonlar bilan jamoaviy janglar.",min:"OS: Windows 7\nRAM: 512 MB\nGPU: DirectX 8 compatible",rec:"RAM: 1 GB\nGPU: DirectX 9"},
+{id:230410,name:"Warframe",genre:"Action",free:true,desc:"Warframe — futuristik olamdagi tezkor janglar, missiyalar va turli qahramonlar haqidagi action o‘yini.",min:"OS: Windows 7 64-bit\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: DirectX 11"},
+{id:1172470,name:"Apex Legends",genre:"Shooter",free:true,desc:"Apex Legends — qahramonlarning maxsus qobiliyatlari bilan jamoaviy battle royale o‘yini.",min:"OS: Windows 10 64-bit\nRAM: 6 GB\nGPU: GTX 950",rec:"RAM: 8 GB\nGPU: GTX 970"},
+{id:578080,name:"PUBG: BATTLEGROUNDS",genre:"Shooter",free:true,desc:"PUBG — katta xaritada omon qolish va g‘alaba uchun kurashishga asoslangan battle royale o‘yini.",min:"OS: Windows 10 64-bit\nRAM: 8 GB\nGPU: GTX 960",rec:"RAM: 16 GB\nGPU: GTX 1060"},
+{id:1085660,name:"Destiny 2",genre:"Shooter",free:true,desc:"Destiny 2 — ilmiy-fantastik olamda sarguzasht, missiyalar va jamoaviy janglar.",min:"OS: Windows 10 64-bit\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 16 GB\nGPU: GTX 970"},
+{id:238960,name:"Path of Exile",genre:"RPG",free:true,desc:"Path of Exile — qorong‘i fantastik dunyodagi action RPG. Qahramoningizni rivojlantiring va yangi hududlarni o‘rganing.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
+{id:304930,name:"Unturned",genre:"Survival",free:true,desc:"Unturned — zombi xavfi mavjud dunyoda resurs topish, qurish va omon qolishga asoslangan o‘yin.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: 512 MB",rec:"RAM: 8 GB\nGPU: 1 GB"},
+{id:291550,name:"Brawlhalla",genre:"Action",free:true,desc:"Brawlhalla — turli jangchilar bilan arena janglari. Do‘stlaringiz bilan ham o‘ynashingiz mumkin.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 11"},
+{id:236390,name:"War Thunder",genre:"Action",free:true,desc:"Harbiy texnikalar ishtirokidagi janglar. Samolyotlar, tanklar va boshqa texnikalarni boshqaring.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: DirectX 11",rec:"RAM: 16 GB\nGPU: Kuchliroq grafik karta"},
+{id:552990,name:"World of Warships",genre:"Action",free:true,desc:"Dengiz janglari simulyatori. Harbiy kemalarni boshqarib, jamoangiz bilan jang qiling.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
+{id:2073850,name:"THE FINALS",genre:"Shooter",free:true,desc:"THE FINALS — vayron qilinadigan muhit va tezkor jamoaviy janglarga ega shooter.",min:"OS: Windows 10 64-bit\nRAM: 12 GB\nGPU: GTX 1050 Ti",rec:"RAM: 16 GB\nGPU: RTX 2070"},
+{id:2357570,name:"Overwatch 2",genre:"Shooter",free:true,desc:"Overwatch 2 — turli qobiliyatlarga ega qahramonlar ishtirokidagi jamoaviy shooter.",min:"OS: Windows 10\nRAM: 6 GB\nGPU: GTX 600 series",rec:"RAM: 8 GB\nGPU: GTX 1060"},
+{id:2767030,name:"Marvel Rivals",genre:"Action",free:true,desc:"Marvel qahramonlari ishtirokidagi jamoaviy janglar. Sevimli qahramoningizni tanlang.",min:"OS: Windows 10 64-bit\nRAM: 16 GB\nGPU: GTX 1060",rec:"RAM: 16 GB\nGPU: RTX 2060"},
+{id:761890,name:"Albion Online",genre:"RPG",free:true,desc:"Ochiq dunyodagi MMORPG. Hunarmandchilik, savdo, sarguzasht va jamoaviy janglar.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 10",rec:"RAM: 8 GB\nGPU: DirectX 11"},
+{id:714010,name:"Aimlabs",genre:"Shooter",free:true,desc:"Aimlabs — nishonga olish va kompyuter o‘yinlaridagi aniqlikni mashq qilish uchun dastur.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
+{id:1665460,name:"eFootball",genre:"Sport",free:true,desc:"Futbol o‘yini. Jamoangizni tuzing va maydonda raqiblar bilan bellashing.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 1060"},
+{id:380600,name:"Fishing Planet",genre:"Sport",free:true,desc:"Baliq ovlash simulyatori. Turli suv havzalarida baliq ovlang.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: DirectX 11"},
+{id:700330,name:"SCP: Secret Laboratory",genre:"Horror",free:true,desc:"SCP olamidagi ko‘p o‘yinchili dahshat va omon qolish o‘yini.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 1050",rec:"RAM: 16 GB\nGPU: GTX 1060"},
+{id:1091500,name:"Cyberpunk 2077",genre:"RPG",free:false,desc:"Kelajakdagi Night City shahrida kechadigan ochiq dunyo RPG o‘yini. V va uning sarguzashtlarini boshqaring.",min:"OS: Windows 10 64-bit\nRAM: 12 GB\nGPU: GTX 1060 6GB",rec:"OS: Windows 10 64-bit\nRAM: 16 GB\nGPU: RTX 2060"},
+{id:1245620,name:"ELDEN RING",genre:"RPG",free:false,desc:"Katta fantastik dunyoda sayohat qiling, sirlarni oching va kuchli raqiblarga qarshi kurashing.",min:"OS: Windows 10\nRAM: 12 GB\nGPU: GTX 1060",rec:"RAM: 16 GB\nGPU: GTX 1070"},
+{id:271590,name:"Grand Theft Auto V",genre:"Action",free:false,desc:"Los Santos shahridagi ochiq dunyo sarguzashti. Turli topshiriqlar va katta xarita sizni kutmoqda.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 16 GB\nGPU: GTX 970"},
+{id:252490,name:"Rust",genre:"Survival",free:false,desc:"Ochiq dunyoda resurs yig‘ing, boshpana quring va omon qolishga harakat qiling.",min:"OS: Windows 10\nRAM: 10 GB\nGPU: GTX 670",rec:"RAM: 16 GB\nGPU: GTX 980"},
+{id:292030,name:"The Witcher 3: Wild Hunt",genre:"RPG",free:false,desc:"Geralt ismli maxluq ovchisining katta fantastik dunyodagi sarguzashtlari.",min:"OS: Windows 10\nRAM: 6 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 770"},
+{id:413150,name:"Stardew Valley",genre:"Adventure",free:false,desc:"Ferma hayotini boshlang, ekinlar yetishtiring, do‘stlar orttiring va qishloqni o‘rganing.",min:"OS: Windows Vista\nRAM: 2 GB\nGPU: 256 MB",rec:"RAM: 4 GB\nGPU: 512 MB"},
+{id:620,name:"Portal 2",genre:"Adventure",free:false,desc:"Mantiqiy jumboqlar va portallar yordamida murakkab sinovlardan o‘ting.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 10"},
+{id:4000,name:"Garry's Mod",genre:"Adventure",free:false,desc:"Turli obyektlar bilan tajriba qiling, o‘z sahnalaringizni yarating va ijodkorlikni sinang.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 9",rec:"RAM: 8 GB\nGPU: DirectX 11"},
+{id:105600,name:"Terraria",genre:"Adventure",free:false,desc:"Qazish, qurish, jang qilish va kashfiyotlarga boy ikki o‘lchamli sarguzasht.",min:"OS: Windows 7\nRAM: 2.5 GB\nGPU: 128 MB",rec:"RAM: 4 GB\nGPU: 256 MB"},
+{id:550,name:"Left 4 Dead 2",genre:"Action",free:false,desc:"Zombi bosib olgan hududlarda jamoangiz bilan omon qolishga harakat qiling.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 9"},
+{id:227300,name:"Euro Truck Simulator 2",genre:"Racing",free:false,desc:"Yevropa yo‘llarida yuk mashinasini boshqaring va o‘z transport biznesingizni rivojlantiring.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 760"},
+{id:1086940,name:"Baldur's Gate 3",genre:"RPG",free:false,desc:"Tanlovlaringiz muhim bo‘lgan fantastik RPG. Jamoa tuzing va katta sarguzashtga chiqing.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 970",rec:"RAM: 16 GB\nGPU: RTX 2060"}
 ];
 
-const $=id=>document.getElementById(id);
-function cover(g){
- if(g[1])return `<img loading="lazy" src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${g[1]}/library_600x900.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="fallback">${g[0]}</div>`;
- return `<div class="fallback" style="display:flex">${g[0]}</div>`;
+function image(id,type="cover"){
+ const base=`https://cdn.akamai.steamstatic.com/steam/apps/${id}/`;
+ if(type==="hero")return base+"library_hero.jpg";
+ if(type==="header")return base+"header.jpg";
+ if(type==="small")return base+"capsule_616x353.jpg";
+ return base+"library_600x900.jpg";
 }
-function render(){
- let list=games.map((g,i)=>({g,i}));
- let q=$('search').value.toLowerCase();
- if(q)list=list.filter(x=>x.g[0].toLowerCase().includes(q)||x.g[4].toLowerCase().includes(q));
- if($('genre').value!=='all')list=list.filter(x=>x.g[3].toLowerCase()===$('genre').value.toLowerCase());
- if($('sort').value==='score')list.sort((a,b)=>b.g[6]-a.g[6]);
- if($('sort').value==='name')list.sort((a,b)=>a.g[0].localeCompare(b.g[0]));
- if($('sort').value==='year')list.sort((a,b)=>b.g[2]-a.g[2]);
- $('count').textContent=list.length+' ta o‘yin topildi';
- $('grid').innerHTML=list.map(({g,i})=>`
- <article class="game" onclick="openGame(${i})">
-  <div class="poster">${cover(g)}<span class="score">★ ${g[6].toFixed(1)}</span></div>
-  <div class="info"><h3>${g[0]}</h3><small>${g[2]} · ${g[4]}</small><br><span class="tag">${g[3]}</span></div>
- </article>`).join('');
+
+function card(g){
+ return `<article class="card" onclick="openGame(${g.id})">
+ <img loading="lazy" src="${image(g.id)}" onerror="this.onerror=null;this.src='${image(g.id,'header')}'">
+ <div class="info"><h3>${g.name}</h3><small>${g.genre} • ${g.free?'Bepul':'Pullik'}</small></div>
+ </article>`;
 }
+
 function renderTop(){
- let top=games.map((g,i)=>({g,i})).sort((a,b)=>b.g[6]-a.g[6]).slice(0,10);
- $('topgrid').innerHTML=top.map(({g},i)=>`<div class="topitem"><b>${String(i+1).padStart(2,'0')}</b><span>${g[0]}<br><small style="color:#aaa">★ ${g[6].toFixed(1)} / 10</small></span></div>`).join('');
+ document.getElementById("topGrid").innerHTML=games.slice(0,10).map(card).join("");
 }
-function openGame(i){
- let g=games[i];
- let img=g[1]?`https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/${g[1]}/library_hero.jpg`:'';
- $('dialog').innerHTML=`
- <div class="modalhero">${img?`<img src="${img}" onerror="this.style.display='none'">`:''}<h2>${g[0]}</h2><button class="close" onclick="closeGame()">✕</button></div>
- <div class="details">
- <p>${g[7]}</p>
- <div class="facts">
-  <div class="fact"><small>CHIQQAN YILI</small><b>${g[2]}</b></div>
-  <div class="fact"><small>REDCORE BAHOSI</small><b>★ ${g[6]} / 10</b></div>
-  <div class="fact"><small>JANR</small><b>${g[3]}</b></div>
-  <div class="fact"><small>ISHLAB CHIQUVCHI</small><b>${g[4]}</b></div>
-  <div class="fact"><small>NASHRIYOTCHI</small><b>${g[5]}</b></div>
-  <div class="fact"><small>PLATFORMA</small><b>PC / Windows</b></div>
- </div>
- <div class="columns">
-  <div class="box"><h3>MINIMUM TALABLAR</h3><p>${g[9]}</p></div>
-  <div class="box"><h3>TAVSIYA ETILADIGAN TALABLAR</h3><p>${g[10]}</p></div>
- </div>
- <div class="box" style="margin-top:13px"><h3>O‘YIN XUSUSIYATLARI</h3><p>${g[8]}</p></div>
- <p style="font-size:11px">Eslatma: tizim talablari qisqa ma’lumot sifatida berilgan. Aniq talablarni rasmiy sahifadan tekshiring. REDCORE bahosi mustaqil tahririy baho, rasmiy platforma reytingi emas.</p>
- ${g[1]?`<a class="btn" target="_blank" rel="noopener" href="https://store.steampowered.com/app/${g[1]}/">STEAM SAHIFASINI OCHISH ↗</a>`:''}
- </div>`;
- $('modal').style.display='flex';
+
+function renderMain(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const genre=document.getElementById("genre").value;
+ const sort=document.getElementById("sort").value;
+
+ let list=games.filter(g=>
+  g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre)
+ );
+
+ list.sort((a,b)=>sort==="az"
+  ?a.name.localeCompare(b.name)
+  :b.name.localeCompare(a.name)
+ );
+
+ document.getElementById("mainGrid").innerHTML=
+ list.length?list.map(card).join(""):'<div class="empty">O‘yin topilmadi.</div>';
 }
-function closeGame(){$('modal').style.display='none'}
-$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeGame()});
-$('search').addEventListener('input',render);
-$('genre').addEventListener('change',render);
-$('sort').addEventListener('change',render);
-render();renderTop();
+
+function renderFree(){
+ const q=document.getElementById("freeSearch").value.toLowerCase();
+ const genre=document.getElementById("freeGenre").value;
+ const sort=document.getElementById("freeSort").value;
+
+ let list=games.filter(g=>
+  g.free&&g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre)
+ );
+
+ list.sort((a,b)=>sort==="az"
+  ?a.name.localeCompare(b.name)
+  :b.name.localeCompare(a.name)
+ );
+
+ document.getElementById("freeGrid").innerHTML=
+ list.length?list.map(card).join(""):'<div class="empty">O‘yin topilmadi.</div>';
+}
+
+function openGame(id){
+ const g=games.find(x=>x.id===id);
+ if(!g)return;
+
+ document.getElementById("modal").classList.add("show");
+ document.body.style.overflow="hidden";
+
+ document.getElementById("detailTitle").textContent=g.name;
+
+ document.getElementById("detailCover").style.backgroundImage=
+ `linear-gradient(0deg,#111,transparent),url('${image(id,'hero')}'),url('${image(id,'header')}')`;
+
+ document.getElementById("detailDesc").textContent=g.desc;
+
+ document.getElementById("detailMeta").textContent=
+ g.genre+" • "+(g.free?"Bepul o‘yin":"Pullik o‘yin");
+
+ document.getElementById("steamLink").href=
+ `https://store.steampowered.com/app/${id}/`;
+
+ document.getElementById("minimum").textContent=g.min;
+ document.getElementById("recommended").textContent=g.rec;
+
+ document.getElementById("screens").innerHTML=`
+ <img loading="lazy" src="${image(id,'header')}" onerror="this.style.display='none'">
+ <img loading="lazy" src="${image(id,'small')}" onerror="this.style.display='none'">
+ <img loading="lazy" src="${image(id,'hero')}" onerror="this.style.display='none'">
+ `;
+
+ // AVVALGI TO‘LIQ MA’LUMOT BO‘LIMINI O‘CHIRISH
+ const oldInfo=document.getElementById("fullInfo");
+ if(oldInfo)oldInfo.remove();
+
+ // YANGI TO‘LIQ MA’LUMOT BO‘LIMI
+ const full=document.createElement("div");
+ full.id="fullInfo";
+
+ full.innerHTML=`
+ <h3>TO‘LIQ MA’LUMOT</h3>
+ <p>
+ <b>${g.name}</b> — ${g.desc}
+
+ Ushbu o‘yin ${g.genre} janriga mansub bo‘lib,
+ o‘yinchilarga o‘ziga xos o‘yin jarayoni va turli
+ imkoniyatlarni taqdim etadi.
+
+ O‘yin davomida yangi vazifalarni bajarish,
+ turli hududlarni o‘rganish va o‘z mahoratingizni
+ sinab ko‘rish mumkin. O‘yinning asosiy maqsadi
+ va o‘yin jarayoni uning janriga qarab farq qiladi.
+
+ <b>O‘yin turi:</b> ${g.free?"Bepul":"Pullik"}
+
+ <b>Janri:</b> ${g.genre}
+
+ <b>Minimal tizim talablari:</b>
+ ${g.min}
+
+ <b>Tavsiya etilgan tizim talablari:</b>
+ ${g.rec}
+
+ O‘yinni o‘rnatishdan oldin kompyuteringiz
+ tizim talablari bilan mos kelishini tekshiring.
+ Yaxshi ishlashi uchun tavsiya etilgan talablarga
+ mos kompyuterdan foydalanish maqsadga muvofiq.
+
+ ${g.free
+ ? "Ushbu o‘yinni bepul yuklab olish imkoniyati mavjud. Batafsil ma’lumot va yuklab olish uchun Steam sahifasiga o‘tishingiz mumkin."
+ : "Ushbu o‘yin pullik hisoblanadi. Uning narxi, chegirmalari va xarid qilish shartlarini Steam sahifasida ko‘rishingiz mumkin."}
+ </p>
+ `;
+
+ document.querySelector(".detail-body").appendChild(full);
+}
+
+function closeModal(){
+ document.getElementById("modal").classList.remove("show");
+ document.body.style.overflow="";
+}
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")closeModal();
+});
+
+renderTop();
+renderMain();
+renderFree();
 </script>
 </body>
 </html>
