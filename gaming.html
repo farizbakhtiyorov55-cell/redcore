@@ -42,6 +42,7 @@ section{padding:60px 6%}
 .controls input,.controls select{background:#191919;border:1px solid #383838;color:white;padding:14px;border-radius:5px;min-width:0}
 .free-banner{padding:20px;background:#240b0d;border:1px solid #542025;border-radius:8px;margin-bottom:25px}
 .free-banner b{color:#ff525a}
+.free-count{color:#ff525a;font-size:14px;font-weight:bold;margin-top:8px}
 .modal{display:none;position:fixed;inset:0;background:#000e;z-index:30;overflow:auto;padding:25px}
 .modal.show{display:block}
 .modal-box{max-width:950px;margin:20px auto;background:#111;border:1px solid #444;border-radius:10px;overflow:hidden;position:relative}
@@ -104,14 +105,15 @@ footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
 </section>
 
 <section class="catalog" id="catalog">
- <div class="heading"><h2>O‘YINLAR <span class="red">KATALOGI</span></h2><p>O‘zingizga yoqqan o‘yinni toping</p></div>
+ <div class="heading"><h2>O‘YINLAR <span class="red">KATALOGI</span></h2><p>Barcha o‘yinlarni qidiring</p></div>
  <div class="controls">
   <input id="search" placeholder="O‘yin nomini qidiring..." oninput="renderMain()">
   <select id="genre" onchange="renderMain()">
    <option value="">Barcha janrlar</option>
    <option>Action</option><option>Shooter</option><option>RPG</option>
    <option>Strategy</option><option>Survival</option><option>Adventure</option>
-   <option>Racing</option><option>Sport</option>
+   <option>Racing</option><option>Sport</option><option>Horror</option>
+   <option>Casual</option><option>MMO</option>
   </select>
   <select id="sort" onchange="renderMain()">
    <option value="az">Nom: A-Z</option><option value="za">Nom: Z-A</option>
@@ -121,14 +123,20 @@ footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
 </section>
 
 <section id="free">
- <div class="heading"><h2><span class="red">BEPUL</span> O‘YINLAR</h2><p>Bepul o‘yinlarni kashf eting</p></div>
- <div class="free-banner"><b>FREE GAMES</b><p>O‘yinni tanlang, ma’lumotlarini REDCORE ichida ko‘ring.</p></div>
+ <div class="heading"><h2><span class="red">BEPUL</span> O‘YINLAR</h2><p>100 ta bepul o‘yinni kashf eting</p></div>
+ <div class="free-banner">
+  <b>FREE GAMES</b>
+  <p>O‘yinni tanlang va uning ma’lumotlarini ko‘ring.</p>
+  <div class="free-count" id="freeCount">100 TA BEPUL O‘YIN</div>
+ </div>
  <div class="controls">
   <input id="freeSearch" placeholder="Bepul o‘yinlardan qidiring..." oninput="renderFree()">
   <select id="freeGenre" onchange="renderFree()">
    <option value="">Barcha janrlar</option>
    <option>Action</option><option>Shooter</option><option>RPG</option>
    <option>Strategy</option><option>Survival</option><option>Casual</option>
+   <option>Adventure</option><option>Racing</option><option>Sport</option>
+   <option>Horror</option><option>MMO</option>
   </select>
   <select id="freeSort" onchange="renderFree()">
    <option value="az">Nom: A-Z</option><option value="za">Nom: Z-A</option>
@@ -159,41 +167,138 @@ footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
 </div>
 
 <script>
-// O‘YIN MA’LUMOTLARI SAYT ICHIDA SAQLANADI
-const games=[
-{id:730,name:"Counter-Strike 2",genre:"Shooter",free:true,desc:"Counter-Strike 2 — jamoaviy taktik shooter. Terroristlar va qarshi-terroristlar o‘rtasidagi janglarda mahoratingizni sinab ko‘ring.",min:"OS: Windows 10\nCPU: 4 hardware CPU threads\nRAM: 8 GB\nGPU: DirectX 11 compatible",rec:"OS: Windows 11\nRAM: 16 GB\nGPU: Kuchliroq grafik karta"},
-{id:570,name:"Dota 2",genre:"Strategy",free:true,desc:"Dota 2 — ikki jamoa o‘rtasidagi strategik MOBA o‘yini. Qahramoningizni tanlang va jamoangiz bilan g‘alaba qozoning.",min:"OS: Windows 7 yoki yangiroq\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
-{id:440,name:"Team Fortress 2",genre:"Shooter",free:true,desc:"Team Fortress 2 — turli qobiliyatlarga ega qahramonlar bilan jamoaviy janglar.",min:"OS: Windows 7\nRAM: 512 MB\nGPU: DirectX 8 compatible",rec:"RAM: 1 GB\nGPU: DirectX 9"},
-{id:230410,name:"Warframe",genre:"Action",free:true,desc:"Warframe — futuristik olamdagi tezkor janglar, missiyalar va turli qahramonlar haqidagi action o‘yini.",min:"OS: Windows 7 64-bit\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: DirectX 11"},
-{id:1172470,name:"Apex Legends",genre:"Shooter",free:true,desc:"Apex Legends — qahramonlarning maxsus qobiliyatlari bilan jamoaviy battle royale o‘yini.",min:"OS: Windows 10 64-bit\nRAM: 6 GB\nGPU: GTX 950",rec:"RAM: 8 GB\nGPU: GTX 970"},
-{id:578080,name:"PUBG: BATTLEGROUNDS",genre:"Shooter",free:true,desc:"PUBG — katta xaritada omon qolish va g‘alaba uchun kurashishga asoslangan battle royale o‘yini.",min:"OS: Windows 10 64-bit\nRAM: 8 GB\nGPU: GTX 960",rec:"RAM: 16 GB\nGPU: GTX 1060"},
-{id:1085660,name:"Destiny 2",genre:"Shooter",free:true,desc:"Destiny 2 — ilmiy-fantastik olamda sarguzasht, missiyalar va jamoaviy janglar.",min:"OS: Windows 10 64-bit\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 16 GB\nGPU: GTX 970"},
-{id:238960,name:"Path of Exile",genre:"RPG",free:true,desc:"Path of Exile — qorong‘i fantastik dunyodagi action RPG. Qahramoningizni rivojlantiring va yangi hududlarni o‘rganing.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
-{id:304930,name:"Unturned",genre:"Survival",free:true,desc:"Unturned — zombi xavfi mavjud dunyoda resurs topish, qurish va omon qolishga asoslangan o‘yin.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: 512 MB",rec:"RAM: 8 GB\nGPU: 1 GB"},
-{id:291550,name:"Brawlhalla",genre:"Action",free:true,desc:"Brawlhalla — turli jangchilar bilan arena janglari. Do‘stlaringiz bilan ham o‘ynashingiz mumkin.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 11"},
-{id:236390,name:"War Thunder",genre:"Action",free:true,desc:"Harbiy texnikalar ishtirokidagi janglar. Samolyotlar, tanklar va boshqa texnikalarni boshqaring.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: DirectX 11",rec:"RAM: 16 GB\nGPU: Kuchliroq grafik karta"},
-{id:552990,name:"World of Warships",genre:"Action",free:true,desc:"Dengiz janglari simulyatori. Harbiy kemalarni boshqarib, jamoangiz bilan jang qiling.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
-{id:2073850,name:"THE FINALS",genre:"Shooter",free:true,desc:"THE FINALS — vayron qilinadigan muhit va tezkor jamoaviy janglarga ega shooter.",min:"OS: Windows 10 64-bit\nRAM: 12 GB\nGPU: GTX 1050 Ti",rec:"RAM: 16 GB\nGPU: RTX 2070"},
-{id:2357570,name:"Overwatch 2",genre:"Shooter",free:true,desc:"Overwatch 2 — turli qobiliyatlarga ega qahramonlar ishtirokidagi jamoaviy shooter.",min:"OS: Windows 10\nRAM: 6 GB\nGPU: GTX 600 series",rec:"RAM: 8 GB\nGPU: GTX 1060"},
-{id:2767030,name:"Marvel Rivals",genre:"Action",free:true,desc:"Marvel qahramonlari ishtirokidagi jamoaviy janglar. Sevimli qahramoningizni tanlang.",min:"OS: Windows 10 64-bit\nRAM: 16 GB\nGPU: GTX 1060",rec:"RAM: 16 GB\nGPU: RTX 2060"},
-{id:761890,name:"Albion Online",genre:"RPG",free:true,desc:"Ochiq dunyodagi MMORPG. Hunarmandchilik, savdo, sarguzasht va jamoaviy janglar.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 10",rec:"RAM: 8 GB\nGPU: DirectX 11"},
-{id:714010,name:"Aimlabs",genre:"Shooter",free:true,desc:"Aimlabs — nishonga olish va kompyuter o‘yinlaridagi aniqlikni mashq qilish uchun dastur.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: Kuchliroq grafik karta"},
-{id:1665460,name:"eFootball",genre:"Sport",free:true,desc:"Futbol o‘yini. Jamoangizni tuzing va maydonda raqiblar bilan bellashing.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 1060"},
-{id:380600,name:"Fishing Planet",genre:"Sport",free:true,desc:"Baliq ovlash simulyatori. Turli suv havzalarida baliq ovlang.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 11",rec:"RAM: 8 GB\nGPU: DirectX 11"},
-{id:700330,name:"SCP: Secret Laboratory",genre:"Horror",free:true,desc:"SCP olamidagi ko‘p o‘yinchili dahshat va omon qolish o‘yini.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 1050",rec:"RAM: 16 GB\nGPU: GTX 1060"},
-{id:1091500,name:"Cyberpunk 2077",genre:"RPG",free:false,desc:"Kelajakdagi Night City shahrida kechadigan ochiq dunyo RPG o‘yini. V va uning sarguzashtlarini boshqaring.",min:"OS: Windows 10 64-bit\nRAM: 12 GB\nGPU: GTX 1060 6GB",rec:"OS: Windows 10 64-bit\nRAM: 16 GB\nGPU: RTX 2060"},
-{id:1245620,name:"ELDEN RING",genre:"RPG",free:false,desc:"Katta fantastik dunyoda sayohat qiling, sirlarni oching va kuchli raqiblarga qarshi kurashing.",min:"OS: Windows 10\nRAM: 12 GB\nGPU: GTX 1060",rec:"RAM: 16 GB\nGPU: GTX 1070"},
-{id:271590,name:"Grand Theft Auto V",genre:"Action",free:false,desc:"Los Santos shahridagi ochiq dunyo sarguzashti. Turli topshiriqlar va katta xarita sizni kutmoqda.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 660",rec:"RAM: 16 GB\nGPU: GTX 970"},
-{id:252490,name:"Rust",genre:"Survival",free:false,desc:"Ochiq dunyoda resurs yig‘ing, boshpana quring va omon qolishga harakat qiling.",min:"OS: Windows 10\nRAM: 10 GB\nGPU: GTX 670",rec:"RAM: 16 GB\nGPU: GTX 980"},
-{id:292030,name:"The Witcher 3: Wild Hunt",genre:"RPG",free:false,desc:"Geralt ismli maxluq ovchisining katta fantastik dunyodagi sarguzashtlari.",min:"OS: Windows 10\nRAM: 6 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 770"},
-{id:413150,name:"Stardew Valley",genre:"Adventure",free:false,desc:"Ferma hayotini boshlang, ekinlar yetishtiring, do‘stlar orttiring va qishloqni o‘rganing.",min:"OS: Windows Vista\nRAM: 2 GB\nGPU: 256 MB",rec:"RAM: 4 GB\nGPU: 512 MB"},
-{id:620,name:"Portal 2",genre:"Adventure",free:false,desc:"Mantiqiy jumboqlar va portallar yordamida murakkab sinovlardan o‘ting.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 10"},
-{id:4000,name:"Garry's Mod",genre:"Adventure",free:false,desc:"Turli obyektlar bilan tajriba qiling, o‘z sahnalaringizni yarating va ijodkorlikni sinang.",min:"OS: Windows 7\nRAM: 4 GB\nGPU: DirectX 9",rec:"RAM: 8 GB\nGPU: DirectX 11"},
-{id:105600,name:"Terraria",genre:"Adventure",free:false,desc:"Qazish, qurish, jang qilish va kashfiyotlarga boy ikki o‘lchamli sarguzasht.",min:"OS: Windows 7\nRAM: 2.5 GB\nGPU: 128 MB",rec:"RAM: 4 GB\nGPU: 256 MB"},
-{id:550,name:"Left 4 Dead 2",genre:"Action",free:false,desc:"Zombi bosib olgan hududlarda jamoangiz bilan omon qolishga harakat qiling.",min:"OS: Windows 7\nRAM: 2 GB\nGPU: DirectX 9",rec:"RAM: 4 GB\nGPU: DirectX 9"},
-{id:227300,name:"Euro Truck Simulator 2",genre:"Racing",free:false,desc:"Yevropa yo‘llarida yuk mashinasini boshqaring va o‘z transport biznesingizni rivojlantiring.",min:"OS: Windows 10\nRAM: 4 GB\nGPU: GTX 660",rec:"RAM: 8 GB\nGPU: GTX 760"},
-{id:1086940,name:"Baldur's Gate 3",genre:"RPG",free:false,desc:"Tanlovlaringiz muhim bo‘lgan fantastik RPG. Jamoa tuzing va katta sarguzashtga chiqing.",min:"OS: Windows 10\nRAM: 8 GB\nGPU: GTX 970",rec:"RAM: 16 GB\nGPU: RTX 2060"}
+const freeGames = [
+[730,"Counter-Strike 2","Shooter"],
+[570,"Dota 2","Strategy"],
+[440,"Team Fortress 2","Shooter"],
+[230410,"Warframe","Action"],
+[1172470,"Apex Legends","Shooter"],
+[578080,"PUBG: BATTLEGROUNDS","Shooter"],
+[1085660,"Destiny 2","Shooter"],
+[238960,"Path of Exile","RPG"],
+[304930,"Unturned","Survival"],
+[291550,"Brawlhalla","Action"],
+[236390,"War Thunder","Action"],
+[552990,"World of Warships","Action"],
+[2073850,"THE FINALS","Shooter"],
+[2357570,"Overwatch 2","Shooter"],
+[2767030,"Marvel Rivals","Action"],
+[761890,"Albion Online","RPG"],
+[714010,"Aimlabs","Shooter"],
+[1665460,"eFootball","Sport"],
+[380600,"Fishing Planet","Sport"],
+[700330,"SCP: Secret Laboratory","Horror"],
+[444090,"Paladins","Shooter"],
+[386360,"SMITE","Action"],
+[1568590,"Goose Goose Duck","Casual"],
+[1782210,"Crab Game","Casual"],
+[1625450,"Muck","Survival"],
+[225840,"Sven Co-op","Action"],
+[224260,"No More Room in Hell","Horror"],
+[355180,"Codename CURE","Shooter"],
+[698780,"Doki Doki Literature Club!","Adventure"],
+[582500,"We Were Here","Adventure"],
+[417860,"Emily is Away","Adventure"],
+[1536610,"OpenTTD","Strategy"],
+[211500,"RaceRoom Racing Experience","Racing"],
+[843380,"Super Animal Royale","Action"],
+[8500,"EVE Online","MMO"],
+[9900,"Star Trek Online","MMO"],
+[24200,"DC Universe Online","Action"],
+[109600,"Neverwinter","RPG"],
+[1286830,"Star Wars: The Old Republic","RPG"],
+[1599340,"Lost Ark","RPG"],
+[134340,"RuneScape","MMO"],
+[1343370,"Old School RuneScape","MMO"],
+[2707930,"Palia","Adventure"],
+[2139460,"Once Human","Survival"],
+[1973530,"Limbus Company","RPG"],
+[1449850,"Yu-Gi-Oh! Master Duel","Strategy"],
+[2141910,"Magic: The Gathering Arena","Strategy"],
+[544810,"KARDS","Strategy"],
+[489520,"Minion Masters","Strategy"],
+[588430,"Fallout Shelter","Strategy"],
+[1222670,"The Sims 4","Casual"],
+[438100,"VRChat","Casual"],
+[471710,"Rec Room","Casual"],
+[1097150,"Fall Guys","Casual"],
+[444200,"World of Tanks Blitz","Action"],
+[386180,"Crossout","Action"],
+[2051620,"Enlisted","Shooter"],
+[291480,"Warface","Shooter"],
+[783770,"Ironsight","Shooter"],
+[550650,"Black Squad","Shooter"],
+[2281730,"Combat Master","Shooter"],
+[2225070,"Trackmania","Racing"],
+[799960,"Wizard101","RPG"],
+[216150,"MapleStory","RPG"],
+[304050,"Trove","Adventure"],
+[39120,"RIFT","MMO"],
+[206480,"Dungeons & Dragons Online","RPG"],
+[1284210,"Guild Wars 2","MMO"],
+[1046930,"Dota Underlords","Strategy"],
+[203770,"Crusader Kings II","Strategy"],
+[212500,"The Lord of the Rings Online","MMO"],
+[9880,"Champions Online","RPG"],
+[113400,"APB Reloaded","Action"],
+[630,"Alien Swarm","Action"],
+[563560,"Alien Swarm: Reactive Drop","Action"],
+[265630,"Fistful of Frags","Action"],
+[317360,"Double Action: Boogaloo","Action"],
+[1022450,"War Selection","Strategy"],
+[1289310,"Helltaker","Adventure"],
+[1985690,"The Looker","Adventure"],
+[467360,"Off-Peak","Adventure"],
+[409160,"Dr. Langeskov","Adventure"],
+[1481400,"Dagon","Horror"],
+[1171370,"The Supper","Adventure"],
+[312990,"The Expendabros","Action"],
+[1170880,"Grimm's Hollow","RPG"],
+[744810,"A Raven Monologue","Adventure"],
+[845070,"The Awesome Adventures of Captain Spirit","Adventure"],
+[331470,"Everlasting Summer","Adventure"],
+[410110,"You Have 10 Seconds 2","Casual"],
+[250600,"The Plan","Adventure"],
+[1021950,"When the Darkness Comes","Adventure"],
+[407900,"Princess Remedy in a World of Hurt","RPG"],
+[548980,"The Red Stare","Adventure"],
+[1942100,"One-armed Robber","Action"],
+[2709570,"Supermarket Together","Casual"],
+[2016590,"Dark and Darker","RPG"],
+[961200,"Predecessor","Action"],
+[2507950,"Delta Force","Shooter"]
 ];
+
+const games = freeGames.map(([id,name,genre])=>({
+ id,name,genre,free:true,
+ desc:`${name} — ${genre} janridagi kompyuter o‘yini. O‘yin jarayoni va imkoniyatlarini Steam sahifasida ko‘rishingiz mumkin.`,
+ min:"Windows 10 yoki mos operatsion tizim\nRAM: 8 GB\nGPU: O‘yinga qarab farq qiladi",
+ rec:"Windows 10/11\nRAM: 16 GB\nGPU: O‘yinga qarab farq qiladi"
+}));
+
+const paidGames=[
+[1091500,"Cyberpunk 2077","RPG"],
+[1245620,"ELDEN RING","RPG"],
+[271590,"Grand Theft Auto V","Action"],
+[252490,"Rust","Survival"],
+[292030,"The Witcher 3: Wild Hunt","RPG"],
+[413150,"Stardew Valley","Adventure"],
+[620,"Portal 2","Adventure"],
+[4000,"Garry's Mod","Adventure"],
+[105600,"Terraria","Adventure"],
+[550,"Left 4 Dead 2","Action"],
+[227300,"Euro Truck Simulator 2","Racing"],
+[1086940,"Baldur's Gate 3","RPG"]
+];
+
+paidGames.forEach(([id,name,genre])=>{
+ games.push({
+  id,name,genre,free:false,
+  desc:`${name} — ${genre} janridagi kompyuter o‘yini. Batafsil ma’lumot va narxini Steam sahifasida ko‘ring.`,
+  min:"Windows 10\nRAM: 8 GB\nGPU: O‘yinga qarab farq qiladi",
+  rec:"Windows 10/11\nRAM: 16 GB\nGPU: O‘yinga qarab farq qiladi"
+ });
+});
 
 function image(id,type="cover"){
  const base=`https://cdn.akamai.steamstatic.com/steam/apps/${id}/`;
@@ -218,16 +323,8 @@ function renderMain(){
  const q=document.getElementById("search").value.toLowerCase();
  const genre=document.getElementById("genre").value;
  const sort=document.getElementById("sort").value;
-
- let list=games.filter(g=>
-  g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre)
- );
-
- list.sort((a,b)=>sort==="az"
-  ?a.name.localeCompare(b.name)
-  :b.name.localeCompare(a.name)
- );
-
+ let list=games.filter(g=>g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre));
+ list.sort((a,b)=>sort==="az"?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
  document.getElementById("mainGrid").innerHTML=
  list.length?list.map(card).join(""):'<div class="empty">O‘yin topilmadi.</div>';
 }
@@ -236,92 +333,46 @@ function renderFree(){
  const q=document.getElementById("freeSearch").value.toLowerCase();
  const genre=document.getElementById("freeGenre").value;
  const sort=document.getElementById("freeSort").value;
-
- let list=games.filter(g=>
-  g.free&&g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre)
- );
-
- list.sort((a,b)=>sort==="az"
-  ?a.name.localeCompare(b.name)
-  :b.name.localeCompare(a.name)
- );
-
+ let list=games.filter(g=>g.free&&g.name.toLowerCase().includes(q)&&(!genre||g.genre===genre));
+ list.sort((a,b)=>sort==="az"?a.name.localeCompare(b.name):b.name.localeCompare(a.name));
  document.getElementById("freeGrid").innerHTML=
  list.length?list.map(card).join(""):'<div class="empty">O‘yin topilmadi.</div>';
+ document.getElementById("freeCount").textContent=
+ `JAMI ${freeGames.length} TA BEPUL O‘YIN`;
 }
 
 function openGame(id){
  const g=games.find(x=>x.id===id);
  if(!g)return;
-
  document.getElementById("modal").classList.add("show");
  document.body.style.overflow="hidden";
-
  document.getElementById("detailTitle").textContent=g.name;
-
  document.getElementById("detailCover").style.backgroundImage=
  `linear-gradient(0deg,#111,transparent),url('${image(id,'hero')}'),url('${image(id,'header')}')`;
-
  document.getElementById("detailDesc").textContent=g.desc;
-
  document.getElementById("detailMeta").textContent=
  g.genre+" • "+(g.free?"Bepul o‘yin":"Pullik o‘yin");
-
- document.getElementById("steamLink").href=
- `https://store.steampowered.com/app/${id}/`;
-
+ document.getElementById("steamLink").href=`https://store.steampowered.com/app/${id}/`;
  document.getElementById("minimum").textContent=g.min;
  document.getElementById("recommended").textContent=g.rec;
-
  document.getElementById("screens").innerHTML=`
  <img loading="lazy" src="${image(id,'header')}" onerror="this.style.display='none'">
  <img loading="lazy" src="${image(id,'small')}" onerror="this.style.display='none'">
  <img loading="lazy" src="${image(id,'hero')}" onerror="this.style.display='none'">
  `;
-
- // AVVALGI TO‘LIQ MA’LUMOT BO‘LIMINI O‘CHIRISH
  const oldInfo=document.getElementById("fullInfo");
  if(oldInfo)oldInfo.remove();
-
- // YANGI TO‘LIQ MA’LUMOT BO‘LIMI
  const full=document.createElement("div");
  full.id="fullInfo";
-
  full.innerHTML=`
  <h3>TO‘LIQ MA’LUMOT</h3>
- <p>
- <b>${g.name}</b> — ${g.desc}
-
- Ushbu o‘yin ${g.genre} janriga mansub bo‘lib,
- o‘yinchilarga o‘ziga xos o‘yin jarayoni va turli
- imkoniyatlarni taqdim etadi.
-
- O‘yin davomida yangi vazifalarni bajarish,
- turli hududlarni o‘rganish va o‘z mahoratingizni
- sinab ko‘rish mumkin. O‘yinning asosiy maqsadi
- va o‘yin jarayoni uning janriga qarab farq qiladi.
-
- <b>O‘yin turi:</b> ${g.free?"Bepul":"Pullik"}
-
- <b>Janri:</b> ${g.genre}
-
- <b>Minimal tizim talablari:</b>
- ${g.min}
-
- <b>Tavsiya etilgan tizim talablari:</b>
- ${g.rec}
-
- O‘yinni o‘rnatishdan oldin kompyuteringiz
- tizim talablari bilan mos kelishini tekshiring.
- Yaxshi ishlashi uchun tavsiya etilgan talablarga
- mos kompyuterdan foydalanish maqsadga muvofiq.
-
- ${g.free
- ? "Ushbu o‘yinni bepul yuklab olish imkoniyati mavjud. Batafsil ma’lumot va yuklab olish uchun Steam sahifasiga o‘tishingiz mumkin."
- : "Ushbu o‘yin pullik hisoblanadi. Uning narxi, chegirmalari va xarid qilish shartlarini Steam sahifasida ko‘rishingiz mumkin."}
- </p>
- `;
-
+ <p><b>${g.name}</b> — ${g.desc}<br><br>
+ Ushbu o‘yin ${g.genre} janriga mansub.
+ <br><br><b>O‘yin turi:</b> ${g.free?"Bepul":"Pullik"}
+ <br><b>Janri:</b> ${g.genre}
+ <br><br><b>Minimal tizim talablari:</b><br>${g.min}
+ <br><br><b>Tavsiya etilgan tizim talablari:</b><br>${g.rec}
+ <br><br>O‘yinni yuklab olishdan oldin Steam sahifasida narxi, mavjudligi va tizim talablarini tekshiring.</p>`;
  document.querySelector(".detail-body").appendChild(full);
 }
 
