@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -30,12 +29,50 @@ section{padding:60px 6%}
 .heading{margin-bottom:25px}
 .heading h2{font-size:30px;margin:0}
 .heading p{color:#999}
-.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:17px}
-.card{background:var(--panel);border:1px solid #292929;border-radius:8px;overflow:hidden;cursor:pointer;transition:.2s}
+
+/* O'YINLAR KARTASI — BO'SH JOYLAR TUZATILDI */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(5,minmax(0,1fr));
+ grid-auto-flow:row dense;
+ align-items:stretch;
+ gap:17px;
+}
+.card{
+ display:flex;
+ flex-direction:column;
+ height:100%;
+ min-width:0;
+ background:var(--panel);
+ border:1px solid #292929;
+ border-radius:8px;
+ overflow:hidden;
+ cursor:pointer;
+ transition:.2s;
+}
 .card:hover{transform:translateY(-5px);border-color:var(--red)}
-.card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#222;display:block}
-.info{padding:13px}
-.info h3{font-size:15px;margin:0 0 8px}
+.card img{
+ flex:0 0 auto;
+ width:100%;
+ aspect-ratio:3/4;
+ object-fit:cover;
+ background:#222;
+ display:block;
+}
+.info{
+ flex:1;
+ min-height:70px;
+ display:flex;
+ flex-direction:column;
+ justify-content:flex-start;
+ padding:13px;
+}
+.info h3{
+ font-size:15px;
+ line-height:1.35;
+ min-height:40px;
+ margin:0 0 8px;
+}
 .info small{color:#aaa}
 .catalog{background:#101010}
 .controls{display:grid;grid-template-columns:1fr 200px 170px;gap:12px;margin-bottom:22px}
@@ -60,16 +97,21 @@ section{padding:60px 6%}
 #fullInfo{margin-top:30px;padding-top:20px;border-top:1px solid #333}
 #fullInfo h3{color:var(--red);font-size:22px;margin-bottom:15px}
 #fullInfo p{color:#ccc;font-size:14px;line-height:1.9}
-footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
+footer{padding:30px 6%;border-top:1px solid #292929;color:#888;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.creator{color:#aaa;font-size:14px}
+.creator strong{color:#fff}
 .empty{color:#aaa;padding:30px;grid-column:1/-1}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1000px){
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media(max-width:650px){
  header{padding:0 5%}
  nav{display:none;position:absolute;top:75px;left:0;right:0;background:#111;padding:20px;flex-direction:column}
- nav.open{display:flex}.menu{display:block}
+ nav.open{display:flex}
+ .menu{display:block}
  .hero{padding:45px 6%;min-height:500px}
  section{padding:45px 5%}
- .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row dense;gap:10px}
  .controls{grid-template-columns:1fr}
  .specs{grid-template-columns:1fr}
  .screens{grid-template-columns:1fr 1fr}
@@ -145,7 +187,10 @@ footer{padding:30px 6%;border-top:1px solid #292929;color:#888}
  <div class="grid" id="freeGrid"></div>
 </section>
 
-<footer><b>RED<span class="red">CORE</span></b> — ENTER THE GAME WORLD</footer>
+<footer>
+ <div><b>RED<span class="red">CORE</span></b> — ENTER THE GAME WORLD</div>
+ <div class="creator">Sayt yasovchi: <strong>Baxtiyorov Fariz</strong></div>
+</footer>
 
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
  <div class="modal-box">
@@ -291,6 +336,89 @@ const paidGames=[
 [1086940,"Baldur's Gate 3","RPG"]
 ];
 
+const gameStories = {
+"730":{
+about:"Counter-Strike 2 — ikki jamoa o‘rtasidagi taktik onlayn otishma o‘yini. Terrorchilar va maxsus kuchlar jamoalari raundlarda bellashadi.",
+story:"Bitta uzun syujetli kampaniya yo‘q. Har bir uchrashuv xarita va raund vazifalari asosida kechadi.",
+adventure:"Jamoa bilan harakatlaning, xaritani o‘rganing, strategiya tuzing va belgilangan raund vazifalarini bajaring."
+},
+"570":{
+about:"Dota 2 — besh kishilik ikki jamoa ishtirok etadigan strategik MOBA o‘yini. Har bir qahramonning o‘z qobiliyatlari bor.",
+story:"O‘yin alohida syujetdan ko‘ra, har bir jangdagi strategik to‘qnashuvlarga asoslangan.",
+adventure:"Qahramon tanlang, tajriba va oltin to‘plang, buyumlar xarid qiling va jamoangiz bilan raqib bazasini egallashga intiling."
+},
+"1091500":{
+about:"Cyberpunk 2077 — kelajakdagi Night City megapolisida kechadigan ochiq dunyo RPG o‘yini. Siz V ismli yollanma qahramonni boshqarasiz.",
+story:"V kuchli biochip bilan bog‘liq voqealarga aralashadi. Bu chip uning hayotini o‘zgartirib, Johnny Silverhand bilan bog‘liq sirlarni ochadi.",
+adventure:"Night City ko‘chalarini o‘rganing, topshiriqlarni bajaring, qahramonlar bilan tanishing, jihozlarni yaxshilang va qarorlaringiz bilan voqealarga ta’sir qiling."
+},
+"1245620":{
+about:"ELDEN RING — keng ochiq dunyo, murakkab janglar va sirli joylarga ega fantastik RPG o‘yini.",
+story:"The Lands Between olamida Elden Ring parchalanganidan keyin tartib buziladi. Siz Tarnished sifatida bu olamga qaytib, Elden Lord bo‘lish yo‘lini izlaysiz.",
+adventure:"Qadimiy qal’a va g‘orlarni kashf eting, kuchli raqiblar bilan jang qiling, qurol va sehrlarni toping."
+},
+"271590":{
+about:"Grand Theft Auto V — Los Santos shahrida kechadigan ochiq dunyo sarguzasht va kriminal janrdagi o‘yin.",
+story:"Hikoya Michael, Franklin va Trevor ismli uch qahramon atrofida rivojlanadi. Ularning rejalari va xavfli talonchilik ishlari bir-biriga bog‘lanadi.",
+adventure:"Shaharni o‘rganing, hikoya topshiriqlarini bajaring, avtomobil boshqaring va turli faoliyatlarda qatnashing."
+},
+"252490":{
+about:"Rust — xavfli muhitda resurs yig‘ish, boshpana qurish va omon qolishga asoslangan survival o‘yini.",
+story:"Aniq chiziqli syujet yo‘q. O‘yinchilar dunyoda qanday yashashi, hamkorlik qilishi yoki raqobatlashishi orqali o‘z hikoyasini yaratadi.",
+adventure:"Resurs qidiring, buyumlar yasang, baza quring va atrof-muhitdagi xavflarga tayyor turing."
+},
+"292030":{
+about:"The Witcher 3: Wild Hunt — Geralt ismli maxluq ovchisi haqidagi ochiq dunyo RPG o‘yini.",
+story:"Geralt asrab olgan qizi Ciri'ni izlaydi. Izlanish uni urush, sehrgarlar va Wild Hunt bilan bog‘liq voqealarga olib boradi.",
+adventure:"Qishloq va shaharlarni kezib chiqing, topshiriqlarni bajaring, maxluqlarga qarshi kurashing va tanlovlar qabul qiling."
+},
+"413150":{
+about:"Stardew Valley — dehqonchilik, tinch hayot va sarguzasht elementlari uyg‘unlashgan o‘yin.",
+story:"Qahramon bobosidan qolgan eski fermaga keladi va uni qayta tiklashni boshlaydi. U Pelican Town aholisi bilan ham tanishadi.",
+adventure:"Ekin eking, hayvon boqing, baliq tuting, konlarni o‘rganing va yangi do‘stlar orttiring."
+},
+"620":{
+about:"Portal 2 — portallar yordamida jumboqlar yechiladigan ilmiy-fantastik boshqotirma o‘yini.",
+story:"Chell Aperture Science laboratoriyasida sinovlardan o‘tadi va Wheatley hamda GLaDOS bilan bog‘liq kutilmagan voqealarga duch keladi.",
+adventure:"Portal quroli yordamida xonalarni kesib o‘ting, fizik qonunlardan foydalaning va murakkab sinovlarni yeching."
+},
+"105600":{
+about:"Terraria — 2D ko‘rinishdagi sarguzasht, qurilish va omon qolish elementlariga ega o‘yin.",
+story:"O‘yinchi sirli dunyoda boshlaydi. Sayohat davomida yangi joylar, qadimiy sirlar va kuchli bosslar ochiladi.",
+adventure:"G‘orlarni o‘rganing, resurs qazib oling, qurol va zirhlar yasang, uy quring va bosslar bilan jang qiling."
+},
+"550":{
+about:"Left 4 Dead 2 — to‘rt kishilik jamoa zombi bosqinidan omon qolishga urinadigan kooperativ horror-otishma o‘yini.",
+story:"Virus tarqalgan dunyoda to‘rt tirik qoluvchi xavfsiz joyga yetib borish uchun turli hududlardan o‘tadi.",
+adventure:"Jamoa bilan xavfli hududlardan o‘ting, resurs toping, bir-biringizni himoya qiling va xavfsiz joyga yetib boring."
+},
+"227300":{
+about:"Euro Truck Simulator 2 — Yevropa bo‘ylab yuk tashish va yuk mashinasi boshqarishga bag‘ishlangan simulyator.",
+story:"Chiziqli hikoya yo‘q: haydovchilik faoliyatini kichik ishlardan boshlab, o‘z transport biznesingizni kengaytirasiz.",
+adventure:"Yuklarni manzilga yetkazing, yangi shaharlarni kashf eting, mashinangizni sozlang va garajingizni kengaytiring."
+},
+"1086940":{
+about:"Baldur's Gate 3 — Dungeons & Dragons olamida kechadigan, tanlovlar va jamoaviy janglarga asoslangan RPG o‘yini.",
+story:"Qahramon va uning hamrohlari sirli parazit bilan bog‘liq xavfga duch keladi. Ular yechim izlar ekan, turli guruhlar va mojarolarga aralashadi.",
+adventure:"Jamoa tuzing, hududlarni o‘rganing, suhbatlarda qaror qabul qiling va navbatma-navbat janglarda qatnashing."
+},
+"1172470":{
+about:"Apex Legends — qahramonlar va jamoaviy taktikaga asoslangan battle royale otishma o‘yini.",
+story:"O‘yin Titanfall olamida kechadi. Turli qobiliyatli Legends Apex Games musobaqalarida qatnashadi.",
+adventure:"Jamoangiz bilan xaritaga tushing, jihozlar toping va qahramon qobiliyatlaridan foydalanib omon qoling."
+},
+"578080":{
+about:"PUBG: BATTLEGROUNDS — katta xaritada ko‘plab o‘yinchilar qatnashadigan battle royale o‘yini.",
+story:"Chiziqli syujet yo‘q. Har bir uchrashuv omon qolish va g‘alaba uchun kurashga asoslanadi.",
+adventure:"Xaritaga tushing, qurol va jihozlar toping, xavfsiz hududga qarab harakatlaning va g‘olib bo‘lishga intiling."
+},
+"230410":{
+about:"Warframe — kosmik fantastika olamidagi tezkor janglar va kooperativ topshiriqlarga ega action o‘yini.",
+story:"Tenno jangchilari uzoq uyqudan uyg‘onib, turli kuchlar o‘rtasidagi mojaroga aralashadi.",
+adventure:"Warframe kostyumlarini oching, qurol va jihozlarni yaxshilang, sayyoralar bo‘ylab missiyalar bajaring."
+}
+};
+
 paidGames.forEach(([id,name,genre])=>{
  games.push({
   id,name,genre,free:false,
@@ -362,17 +490,91 @@ function openGame(id){
  `;
  const oldInfo=document.getElementById("fullInfo");
  if(oldInfo)oldInfo.remove();
+
+ const fallback={
+ Shooter:[
+ "Otishma janridagi o‘yin. Nishonga olish va jihozlardan foydalanish muhim.",
+ "O‘yin mazmuni xaritalar va jangovar vazifalar orqali ochiladi; alohida syujet bo‘lmasligi mumkin.",
+ "Turli xaritalarda qatnashing, jihozlarni tanlang va vazifalarni bajaring."
+ ],
+ Action:[
+ "Harakat va jangovar vazifalarga asoslangan o‘yin.",
+ "Voqealar topshiriqlar va o‘yin dunyosidagi hodisalar orqali rivojlanadi.",
+ "Hududlarni o‘rganing, qiyinchiliklarni yengib o‘ting."
+ ],
+ RPG:[
+ "Qahramon va uning rivojlanishiga e’tibor qaratadigan RPG o‘yini.",
+ "Voqealar topshiriqlar, personajlar va o‘yin dunyosi orqali ochiladi.",
+ "Yangi joylarni o‘rganing, topshiriqlar bajaring va qahramoningizni rivojlantiring."
+ ],
+ Strategy:[
+ "Reja tuzish va resurslardan foydalanishga asoslangan strategiya o‘yini.",
+ "Mazmuni strategik vazifalar va qarorlarga bog‘liq.",
+ "Reja tuzing, resurslarni boshqaring va maqsadlarga erishing."
+ ],
+ Survival:[
+ "Xavfli muhitda omon qolishga asoslangan survival o‘yini.",
+ "O‘yinchi resurs topish va xavflarni yengish orqali o‘z hikoyasini yaratadi.",
+ "Resurs yig‘ing, buyumlar tayyorlang va boshpana quring."
+ ],
+ Adventure:[
+ "Kashfiyot, topshiriqlar va voqealarga asoslangan sarguzasht o‘yini.",
+ "Mazmuni o‘yin dunyosi, qahramonlar va vazifalar orqali ochiladi.",
+ "Yangi joylarni kashf eting, jumboqlarni yeching va topshiriqlarni bajaring."
+ ],
+ Racing:[
+ "Transport boshqarish va poygalarga asoslangan o‘yin.",
+ "O‘yin musobaqalar va haydovchilik mahoratiga qaratilgan.",
+ "Turli trassalarda poygalashing va transport vositalarini boshqaring."
+ ],
+ Sport:[
+ "Sport musobaqalari va bellashuvlariga asoslangan o‘yin.",
+ "Voqealar uchrashuvlar va turnirlar orqali rivojlanadi.",
+ "Jamoa yoki sportchini boshqaring va musobaqalarda qatnashing."
+ ],
+ Horror:[
+ "Sirli muhit va tarang vaziyatlarga asoslangan horror o‘yini.",
+ "Voqealar sirli joylar va xavfli vaziyatlar atrofida kechadi.",
+ "Atrofni o‘rganing, topilmalarni izlang va jumboqlarni yeching."
+ ],
+ Casual:[
+ "Turli mashg‘ulotlarga ega casual janridagi o‘yin.",
+ "Mazmuni tanlangan rejimlarga qarab farq qiladi.",
+ "Turli rejimlarni sinab ko‘ring va vazifalarni bajaring."
+ ],
+ MMO:[
+ "Ko‘plab o‘yinchilar bitta dunyoda qatnashadigan onlayn MMO o‘yini.",
+ "Voqealar topshiriqlar va hamkorlik orqali ochiladi.",
+ "Dunyoni o‘rganing, topshiriqlar bajaring va jamoa tuzing."
+ ]
+ };
+
+ const d=gameStories[g.id] || (()=>{
+  const x=fallback[g.genre]||fallback.Adventure;
+  return {
+   about:g.name+" — "+x[0],
+   story:x[1],
+   adventure:x[2]
+  };
+ })();
+
  const full=document.createElement("div");
  full.id="fullInfo";
  full.innerHTML=`
- <h3>TO‘LIQ MA’LUMOT</h3>
- <p><b>${g.name}</b> — ${g.desc}<br><br>
- Ushbu o‘yin ${g.genre} janriga mansub.
- <br><br><b>O‘yin turi:</b> ${g.free?"Bepul":"Pullik"}
- <br><b>Janri:</b> ${g.genre}
- <br><br><b>Minimal tizim talablari:</b><br>${g.min}
- <br><br><b>Tavsiya etilgan tizim talablari:</b><br>${g.rec}
- <br><br>O‘yinni yuklab olishdan oldin Steam sahifasida narxi, mavjudligi va tizim talablarini tekshiring.</p>`;
+  <h3>TO‘LIQ MA’LUMOT</h3>
+  <h4>O‘YIN HAQIDA</h4><p>${d.about}</p>
+  <h4>HIKOYA VA SARGUZASHTLAR</h4><p>${d.story}</p>
+  <h4>O‘YINDA NIMALAR QILISH MUMKIN?</h4><p>${d.adventure}</p>
+  <h4>ASOSIY MA’LUMOTLAR</h4>
+  <p><b>O‘yin nomi:</b> ${g.name}<br>
+  <b>Janri:</b> ${g.genre}<br>
+  <b>O‘yin turi:</b> ${g.free?"Bepul":"Pullik"}<br>
+  <b>Steam ID:</b> ${g.id}</p>
+  <h4>TIZIM TALABLARI</h4>
+  <p><b>Minimal talablar:</b><br>${g.min.replaceAll("\n","<br>")}<br><br>
+  <b>Tavsiya etilgan talablar:</b><br>${g.rec.replaceAll("\n","<br>")}</p>
+  <p>Diqqat: umumiy talablar taxminiy bo‘lishi mumkin. Aniq tizim talablarini Steam sahifasidan tekshiring.</p>
+ `;
  document.querySelector(".detail-body").appendChild(full);
 }
 
